@@ -1,40 +1,40 @@
-/* Modern FFSP Dashboard CSS */
+/* Modern Zero@Design Dashboard CSS */
 :root {
-    /* Ana Renkler - Bosch Brand Colors */
-    --bosch-green: #005530;
-    --bosch-red: #D51635;
-    --navy: #02154e;
-    --orange: #f9ba00;
+    /* Ana Renkler - Zero@Design Brand Colors */
+    --primary-navy: #1a2332;
+    --secondary-navy: #243447;
+    --accent-blue: #4a90e2;
+    --light-blue: #6ba3f5;
     
     /* Sistem Renkleri */
-    --bg: #0b1222;
+    --bg: #0f1419;
     --background: var(--bg);
-    --panel: #111b34;
+    --panel: #1a2332;
     --card-bg: var(--panel);
-    --muted: #8ea0bf;
+    --muted: #7a8ba0;
     --text-muted: var(--muted);
-    --ink: #e6ebff;
+    --ink: #ffffff;
     --text-color: var(--ink);
-    --brand: #3b82f6;
+    --brand: #4a90e2;
     --brand-color: var(--brand);
     --ok: #16a34a;
     --warn: #f59e0b;
     --alert: #ef4444;
-    --pill: #1f2a44;
-    --line: #1c2a4d;
+    --pill: #243447;
+    --line: #2a3441;
     --border-color: var(--line);
     
     /* Hover ve Focus Renkleri */
-    --hover-bg: rgba(59, 130, 246, 0.1);
+    --hover-bg: rgba(74, 144, 226, 0.1);
     
     /* Chart Renkleri */
-    --chart-blue: #4facfe;
-    --chart-red: #ff416c;
+    --chart-blue: #4a90e2;
+    --chart-teal: #00d4aa;
     --chart-green: #56ab2f;
-    --chart-orange: #f093fb;
+    --chart-orange: #ff9500;
     
     /* RGB Değerleri (box-shadow için) */
-    --primary-rgb: 59, 130, 246;
+    --primary-rgb: 74, 144, 226;
 }
 
 * {
@@ -80,7 +80,7 @@ body {
 }
 
 .seg {
-    background: #0f1a33;
+    background: var(--secondary-navy);
     border-radius: 10px;
     padding: 4px;
     display: inline-flex;
@@ -92,11 +92,17 @@ body {
     border-radius: 8px;
     color: var(--muted);
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .seg button.active {
     background: var(--brand);
     color: white;
+}
+
+.seg button:hover:not(.active) {
+    background: var(--hover-bg);
+    color: var(--ink);
 }
 
 .card {
@@ -120,15 +126,36 @@ body {
 }
 
 .kpi {
-    background: #0f1a33;
+    background: var(--secondary-navy);
     border: 1px solid var(--line);
     border-radius: 12px;
-    padding: 12px;
+    padding: 16px;
+    transition: all 0.2s ease;
+}
+
+.kpi:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.1);
+}
+
+.kpi-label {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.kpi-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
 }
 
 .kpi .v {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 700;
+    color: var(--ink);
 }
 
 .flex {
@@ -142,21 +169,29 @@ body {
 }
 
 .btn {
-    background: #1a2a4d;
+    background: var(--secondary-navy);
     color: white;
     border: 1px solid var(--line);
-    padding: 8px 12px;
+    padding: 10px 16px;
     border-radius: 10px;
     cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
 }
 
 .btn:hover {
-    filter: brightness(1.1);
+    background: var(--brand);
+    border-color: var(--brand);
+    box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.2);
 }
 
 .btn.ghost {
     background: transparent;
     color: var(--ink);
+}
+
+.btn.ghost:hover {
+    background: var(--hover-bg);
 }
 
 .switch {
@@ -291,9 +326,10 @@ input[type=number] {
 }
 
 .navbar {
-    background: var(--panel);
-    border-bottom: none;
+    background: var(--primary-navy);
+    border-bottom: 1px solid var(--line);
     padding: 1rem 0 0 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Dashboard Header Styles */
@@ -307,7 +343,7 @@ input[type=number] {
 /* Page Header Section Styles */
 .page-header-section {
     width: 100%;
-    background: var(--panel);
+    background: var(--secondary-navy);
     border-bottom: 1px solid var(--line);
     padding: 1.5rem 0;
     margin-bottom: 1.5rem;
@@ -318,7 +354,7 @@ input[type=number] {
     width: 100%;
     padding: 2rem 0 1.5rem 0;
     text-align: center;
-    background: var(--panel);
+    background: var(--secondary-navy);
 }
 
 .page-header-content {
@@ -401,18 +437,21 @@ input[type=number] {
     color: var(--muted) !important;
     font-weight: 500;
     padding: 0.5rem 1rem !important;
-    border-radius: 6px;
+    border-radius: 8px;
     transition: all 0.3s ease;
+    margin: 0 0.25rem;
 }
 
 .nav-link:hover {
     color: var(--ink) !important;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--hover-bg);
+    transform: translateY(-1px);
 }
 
 .nav-link.active {
-    color: var(--ink) !important;
+    color: white !important;
     background: var(--brand);
+    box-shadow: 0 2px 8px rgba(var(--primary-rgb), 0.3);
 }
 
 /* Navbar Actions Styles */
@@ -589,10 +628,11 @@ input[type=number] {
 }
 
 .chart-section, .risk-section {
-    background: var(--panel);
+    background: var(--secondary-navy);
     border: 1px solid var(--line);
     border-radius: 14px;
     padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .section-title {

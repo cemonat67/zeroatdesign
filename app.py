@@ -3,7 +3,7 @@ Zero@Design - Eco-Design @ Source Platform
 Ana uygulama dosyası
 """
 
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session, flash
 import json
 import os
 from datetime import datetime
@@ -24,10 +24,77 @@ DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
 if not os.path.exists(DATA_DIR):
     os.makedirs(DATA_DIR)
 
+# Basit kullanıcı veritabanı (gerçek uygulamada veritabanı kullanılmalı)
+USERS = {
+    'admin': 'admin123',
+    'demo': 'demo123',
+    'test': 'test123'
+}
+
 @app.route('/')
+def welcome():
+    """Hoşgeldiniz sayfası"""
+    if 'user' in session:
+        return redirect(url_for('dashboard'))
+    return render_template('welcome.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    """Giriş sayfası"""
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        if username in USERS and USERS[username] == password:
+            session['user'] = username
+            flash('Başarıyla giriş yaptınız!', 'success')
+            return redirect(url_for('dashboard'))
+        else:
+            flash('Kullanıcı adı veya şifre hatalı!', 'error')
+    
+    return render_template('login.html')
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    """Kayıt sayfası"""
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+        
+        if username in USERS:
+            flash('Bu kullanıcı adı zaten mevcut!', 'error')
+        elif password != confirm_password:
+            flash('Şifreler eşleşmiyor!', 'error')
+        elif len(password) < 6:
+            flash('Şifre en az 6 karakter olmalıdır!', 'error')
+        else:
+            USERS[username] = password
+            session['user'] = username
+            flash('Başarıyla kayıt oldunuz!', 'success')
+            return redirect(url_for('dashboard'))
+    
+    return render_template('register.html')
+
+@app.route('/logout')
+def logout():
+    """Çıkış"""
+    session.pop('user', None)
+    flash('Başarıyla çıkış yaptınız!', 'info')
+    return redirect(url_for('welcome'))
+
+@app.route('/dashboard')
+def dashboard():
+    """Ana dashboard - giriş yapmış kullanıcılar için"""
+    if 'user' not in session:
+        flash('Lütfen önce giriş yapın!', 'warning')
+        return redirect(url_for('login'))
+    return render_template('index.html', user=session['user'])
+
+@app.route('/index')
 def index():
-    """Ana sayfa - Dashboard"""
-    return render_template('index.html')
+    """Ana sayfa - Dashboard (eski route, yönlendirme için)"""
+    return redirect(url_for('dashboard'))
 
 @app.route('/benchmark')
 def benchmark():
