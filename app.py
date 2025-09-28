@@ -34,7 +34,7 @@ USERS = {
 @app.route('/')
 def index():
     """Ana sayfa - Dashboard"""
-    return app.send_static_file('index.html')
+    return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
