@@ -32,11 +32,9 @@ USERS = {
 }
 
 @app.route('/')
-def welcome():
-    """Hoşgeldiniz sayfası"""
-    if 'user' in session:
-        return redirect(url_for('dashboard'))
-    return render_template('welcome.html')
+def index():
+    """Ana sayfa - Dashboard"""
+    return app.send_static_file('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -85,16 +83,10 @@ def logout():
 
 @app.route('/dashboard')
 def dashboard():
-    """Ana dashboard - giriş yapmış kullanıcılar için"""
+    """Dashboard sayfası (eski index route'u)"""
     if 'user' not in session:
-        flash('Lütfen önce giriş yapın!', 'warning')
         return redirect(url_for('login'))
     return render_template('index.html', user=session['user'])
-
-@app.route('/index')
-def index():
-    """Ana sayfa - Dashboard (eski route, yönlendirme için)"""
-    return redirect(url_for('dashboard'))
 
 @app.route('/benchmark')
 def benchmark():
