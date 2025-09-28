@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}FFSP Dashboard{% endblock %}
+
+{% block content %}
+<div class="wrap">
+    <div class="hero">
+        <div class="seg">
+            <button class="active">Dashboard</button>
+            <button onclick="window.location.href='/analytics'">Analytics</button>
+            <button onclick="window.location.href='/design'">Design</button>
+            <button onclick="window.location.href='/analyze'">Analyze</button>
+            <button onclick="window.location.href='/optimize'">Optimize</button>
+            <button onclick="window.location.href='/report'">Report</button>
+            <button onclick="window.location.href='/export'">Export</button>
+            <button onclick="window.location.href='/settings'">Settings</button>
+        </div>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="kpis">
+        <div class="kpi"><div class="kpi-label">Toplam CO₂e (t)</div><div class="kpi-value">1.72</div></div>
+        <div class="kpi"><div class="kpi-label">Tasarım Skoru</div><div class="kpi-value">8.4</div></div>
+        <div class="kpi"><div class="kpi-label">Sürdürülebilirlik (%)</div><div class="kpi-value">87</div></div>
+        <div class="kpi"><div class="kpi-label">Maliyet Optimizasyonu (%)</div><div class="kpi-value">23.5</div></div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="action-buttons mt16" id="qa-bar">
+      <button class="btn btn-outline-primary" onclick="document.getElementById('csvImport').click()">
+        <i class="fas fa-file-upload"></i> CSV Import
+      </button>
+      <input id="csvImport" type="file" accept=".csv" style="display:none" />
+      <button class="btn btn-outline-primary" id="exportJsonBtn">
+        <i class="fas fa-download"></i> Export JSON
+      </button>
+    </div>
+</div>
+
+<script>
+document.getElementById('csvImport')?.addEventListener('change', async (e) => {
+  const f = e.target.files?.[0]; if(!f) return;
+  const text = await f.text();
+  const lines = text.split(/\r?\n/).filter(Boolean);
+  const head = lines.shift().split(',').map(h=>h.replace(/^"|"$/g,'').trim());
+  const drafts = JSON.parse(localStorage.getItem('z@d.drafts')||'{}');
+  lines.forEach((line,idx)=>{
+    const cols = line.split(',').map(v=>v.replace(/^"|"$/g,'').trim());
+    const row = {}; cols.forEach((v,i)=>row[head[i]]=v);
+    const id = row.styleCode || row.style_code || `import-${Date.now()}-${idx}`;
+    drafts[id] = { meta: row, fibers: [], procs: [], notes: row.notes||'', kpi: {} };
+  });
+  localStorage.setItem('z@d.drafts', JSON.stringify(drafts));
+  alert('CSV import tamamlandı. Taslaklar eklendi.');
+});
+
+document.getElementById('exportJsonBtn')?.addEventListener('click', ()=>{
+  const all = localStorage.getItem('z@d.drafts') || '{}';
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([all],{type:'application/json'}));
+  a.download = 'zero-design-drafts.json'; a.click();
+});
+</script>
+{% endblock %}

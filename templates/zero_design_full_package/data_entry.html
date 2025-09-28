@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Veri Girişi</title>
+</head>
+<body>
+  <h1>Zero@Design Veri Girişi</h1>
+  <form id="dataEntryForm">
+    <label>Kumaş Türü</label>
+    <input id="fabricType" list="fabricList" />
+    <datalist id="fabricList"></datalist>
+
+    <label>Model</label>
+    <input id="modelName" list="modelList" />
+    <datalist id="modelList"></datalist>
+
+    <datalist id="procDict"></datalist>
+
+    <button type="submit">Kaydet</button>
+  </form>
+
+<script>
+async function loadCSV(url){
+  const res = await fetch(url);
+  if(!res.ok) return [];
+  const text = await res.text();
+  const lines = text.split(/\r?\n/).filter(Boolean);
+  if(!lines.length) return [];
+  const head = lines.shift().split(',').map(h=>h.trim());
+  return lines.map(line=>{
+    const cols=line.split(',').map(v=>v.trim());
+    const o={}; cols.forEach((v,i)=>o[head[i]]=v); return o;
+  });
+}
+
+async function populateFabrics(){
+  const fabrics = await loadCSV('/static/data/Urun_Kumas_CO2_Listesi.csv');
+  const fabricList = document.getElementById('fabricList');
+  const set = new Set();
+  fabrics.forEach(r=>{
+    if(r.fabric_type) set.add(r.fabric_type);
+  });
+  fabricList.innerHTML = [...set].map(x=>`<option value="${x}"></option>`).join('');
+}
+
+document.getElementById("dataEntryForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  alert("Kayıt başarıyla oluşturuldu!");
+  window.location.href = "/";
+});
+
+document.addEventListener('DOMContentLoaded', populateFabrics);
+</script>
+</body>
+</html>
