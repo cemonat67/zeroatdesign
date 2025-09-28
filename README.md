@@ -1,6 +1,12 @@
 # Zero@Design - Sürdürülebilir Moda Platformu
 
+🌱 **Tekstil ve Moda Endüstrisinde Sürdürülebilirlik ve Şeffaflık için Dijital Çözümler**
+
 Zero@Design, tekstil ve moda endüstrisinde sürdürülebilirlik ve şeffaflığı artırmak için geliştirilmiş kapsamlı bir dijital platformdur. Platform, CO₂ ayak izi hesaplama, benchmark analizi, AI destekli öneriler ve Digital Product Passport (DPP) entegrasyonu sunmaktadır.
+
+## 🌐 Demo
+
+**Live Demo:** [https://cemonat67.github.io/zeroatdesign/](https://cemonat67.github.io/zeroatdesign/)
 
 ## 🌟 Özellikler
 
