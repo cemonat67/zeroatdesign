@@ -1,3 +1,5 @@
+import QuickActions from "../components/QuickActions";
+
 export default function Dashboard() {
   return (
     <>
@@ -20,6 +22,8 @@ export default function Dashboard() {
           <p className="text-black/70">Get notified when emission limits are exceeded.</p>
         </div>
       </div>
+
+      <QuickActions />
     </>
   );
 }
