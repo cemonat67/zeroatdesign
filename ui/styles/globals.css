@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base reset (Tailwind yoksa bile sorun olmaz) */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background: #0b1022; }
+
+/* Brand helpers */
+:root {
+  --brand-navy: #02154e;
+  --brand-orange: #f9ba00;
+  --brand-red: #D51635;
+  --brand-green: #005530;
+}
+
+/* Basit container ve tipografi */
+main { min-height: 100dvh; color: #e6e8ef; }
+a { text-decoration: none; }
+html, body {
+  scroll-behavior: smooth;
+  font-family: "Inter", sans-serif;
+}

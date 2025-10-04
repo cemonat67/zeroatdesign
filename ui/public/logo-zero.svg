@@ -1,0 +1,6 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Zero@Design">
+  <rect width="120" height="120" rx="20" fill="#02154e"/>
+  <circle cx="60" cy="60" r="34" stroke="#f9ba00" stroke-width="8"/>
+  <path d="M78 42 L42 78" stroke="#f9ba00" stroke-width="8" stroke-linecap="round"/>
+  <text x="60" y="104" text-anchor="middle" fill="#f9ba00" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="16">Zero@Design</text>
+</svg>
