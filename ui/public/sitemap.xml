@@ -2,4 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://app.onatltd.com/</loc></url>
   <url><loc>https://app.onatltd.com/dashboard/</loc></url>
+  <url><loc>https://app.onatltd.com/settings/</loc></url>
+  <url><loc>https://app.onatltd.com/sustainability/</loc></url>
+  <url><loc>https://app.onatltd.com/privacy/</loc></url>
+  <url><loc>https://app.onatltd.com/contact/</loc></url>
 </urlset>
